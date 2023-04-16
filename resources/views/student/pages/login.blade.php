@@ -1,4 +1,4 @@
-@extends('teacher.layouts.auth')
+@extends('student.layouts.auth')
 @section('content')
 <main>
     <div class="container">
@@ -30,7 +30,7 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form method="post" action="{{ url('admin/user-login') }}" class="row g-3 needs-validation" novalidate>
+                  <form method="post" action="{{ url('student/user-login') }}" class="row g-3 needs-validation" novalidate>
                     @csrf
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
@@ -39,9 +39,9 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="yourPassword" class="form-label">Student ID</label>
+                      <input type="text" name="std_id" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please enter your Student ID</div>
                     </div>
 
 
@@ -49,7 +49,7 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="#">Create an account</a></p>
                     </div>
                   </form>
 

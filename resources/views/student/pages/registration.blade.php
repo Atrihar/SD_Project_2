@@ -1,5 +1,6 @@
-@extends('teacher.layouts.auth')
+@extends('student.layouts.auth')
 @section('content')
+
 <main>
     <div class="container">
 
@@ -26,12 +27,18 @@
                 @endif
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                    <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form method="post" action="{{ url('admin/user-login') }}" class="row g-3 needs-validation" novalidate>
+                  <form method="post" action="{{ url('student/registration') }}" class="row g-3 needs-validation" novalidate>
                     @csrf
+                    <div class="col-12">
+                      <label for="yourName" class="form-label">Your Name</label>
+                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <div class="invalid-feedback">Please, enter your name!</div>
+                    </div>
+
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
@@ -39,17 +46,30 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="yourEmail" class="form-label">Student ID</label>
+                      <input type="text" name="std_id" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter your Student ID</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Contact No</label>
+                      <input type="text" name="contact_no" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please enter your phone number</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Batch</label>
+                      <input type="text" name="batch" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please enter your batch number</div>
                     </div>
 
 
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                      <p class="small mb-0">Already have an account? <a href="#">Log in</a></p>
                     </div>
                   </form>
 
@@ -71,5 +91,6 @@
       </section>
 
     </div>
-  </main><!-- End #main -->
+  </main>
+
 @endsection

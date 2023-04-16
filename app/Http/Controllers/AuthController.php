@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Group;
+use App\Models\Assignment;
+use App\Models\Student;
+use App\Models\Enrolled;
+use App\Models\Question;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -70,4 +76,58 @@ class AuthController extends Controller
         return redirect('teacher/login');
     }
 
+
+
+    public function student_register()
+    {
+        return view('student.pages.registration');
+    }
+    public function studentRegister(Request $req)
+    {
+        $name = $req->name;
+        $std_id = $req->std_id;
+        $email = $req->email;
+        $contact_no = $req->contact_no;
+        $batch = $req->batch;
+        $user_exists = Student::where('std_id', '=', $std_id)->first();
+        if ($user_exists) {
+            return redirect()->back()->with('info', 'Student Already Exists');
+        } else {
+            $user = new Student();
+            $user->name = $name;
+            $user->email = $email;
+            $user->std_id = $std_id;
+            $user->contact_no = $contact_no;
+            $user->batch = $batch;
+            if ($user->save()) {
+                return redirect('student/login')->with('info', 'Student registered.');
+            }
+        }
+    }
+
+    public function student_login()
+    {
+        return view('student.pages.login');
+    }
+    public function studentLogin(Request $req)
+    {
+        $std_id = $req->std_id;
+        $email = $req->email;
+
+
+        $user = Student::where('email', '=', $email)
+            ->where('std_id', '=', $std_id)
+            ->first();
+        if ($user) {
+            if ($user->status == 'running') {
+                Session::put('username', $user->name);
+                Session::put('userid', $user->std_id);
+                return redirect('student/dashboard');
+            } else {
+                return redirect()->back()->with('info', 'Waiting for approval.');
+            }
+        } else {
+            return redirect()->back()->with('info', 'Invalid email or studetn Id');
+        }
+    }
 }
